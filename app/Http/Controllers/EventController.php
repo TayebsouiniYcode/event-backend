@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Event;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -34,7 +35,7 @@ class EventController extends Controller
                 'message' => 'Address creation failed: ' . $e->getMessage()
             ], 409);
         }
-        
+
         try {
             $event->save();
             return response()->json([
@@ -51,20 +52,61 @@ class EventController extends Controller
     public function update(Request $request)
     {
         $event = Event::find($request->id);
-        $event->name = $request->name;
-        $event->description = $request->description;
-        $event->start_date = $request->start_date;
-        $event->start_time = $request->start_time;
-        $event->end_date = $request->end_date;
-        $event->end_time = $request->end_time;
-        $event->address_id = $request->address_id;
-        $event->image = $request->image;
-        $event->proprietor_id = $request->proprietor_id;
-        $event->save();
-        return response()->json([
-            'message' => 'Event updated successfully',
-            'event' => $event
-        ], 200);
+
+        if (!$event) {
+            return response()->json([
+                'message' => 'Event not found'
+            ], 404);
+        }
+
+        if (isset($request->name)){
+            $event->name = $request->name;
+        }
+
+        if (isset($request->description)){
+            $event->description = $request->description;
+        }
+
+        if (isset($request->start_date)){
+            $event->start_date = $request->start_date;
+        }
+
+        if (isset($request->start_time)){
+            $event->start_time = $request->start_time;
+        }
+
+        if (isset($request->end_date)){
+            $event->end_date = $request->end_date;
+        }
+
+        if (isset($request->end_time)){
+            $event->end_time = $request->end_time;
+        }
+
+        if (isset($request->address_id)){
+            $event->address_id = $request->address_id;
+        }
+
+        if (isset($request->image)){
+            $event->image = $request->image;
+        }
+
+        if (isset($request->proprietor_id)){
+            $event->proprietor_id = $request->proprietor_id;
+        }
+
+        try {
+            $event->save();
+
+            return response()->json([
+                'message' => 'Event updated successfully',
+                'event' => $event
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Event update failed: ' . $e->getMessage()
+            ], 409);
+        }
     }
 
     public function delete(Request $request)
@@ -119,6 +161,13 @@ class EventController extends Controller
     public function getById(Request $request)
     {
         $event = Event::find($request->id);
+
+        if ($event == null) {
+            return response()->json([
+                'message' => 'Event not found'
+            ], 404);
+        }
+
         return response()->json([
             'event' => $event
         ], 200);
