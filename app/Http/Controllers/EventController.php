@@ -36,8 +36,29 @@ class EventController extends Controller
             ], 409);
         }
 
+        $tickets = $request->tickets;
+
         try {
             $event->save();
+
+            foreach ($tickets as $ticket) {
+                $newTicket = new Ticket();
+                $newTicket->name = $ticket['name'];
+                $newTicket->description = $ticket['description'];
+                $newTicket->price = $ticket['price'];
+                $newTicket->quantity = $ticket['quantity'];
+                $newTicket->event_id = $event->id;
+
+                try {
+                    $newTicket->save();
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'message' => 'Ticket creation failed: ' . $e->getMessage()
+                    ], 409);
+                }
+            }
+
+
             return response()->json([
                 'message' => 'Event created successfully',
                 'event' => $event

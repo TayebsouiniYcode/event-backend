@@ -14,7 +14,8 @@ class Reservation extends Model
         'user_id',
         'quantity',
         'price',
-        'date'
+        'reservation_date',
+        'paid',
     ];
 
     public function ticket()

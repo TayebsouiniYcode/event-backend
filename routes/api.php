@@ -43,9 +43,11 @@ Route::group([
 });
 
 Route::group([
+
     'prefix' => 'reservation'
+
     ], function ($router) {
-        Route::post('checkout', [App\Http\Controllers\ReservationController::class, 'create'])->name('create');
+        Route::post('checkout', [App\Http\Controllers\ReservationController::class, 'checkout'])->name('checkout');
         Route::put('update', [App\Http\Controllers\ReservationController::class, 'update'])->name('update');
         Route::delete('delete', [App\Http\Controllers\ReservationController::class, 'delete'])->name('delete');
         Route::get('get-all', [App\Http\Controllers\ReservationController::class, 'getAll'])->name('get-all');
