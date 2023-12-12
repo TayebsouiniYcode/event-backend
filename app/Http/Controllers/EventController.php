@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\Event;
 use App\Models\Ticket;
+use App\dto\EventDTO;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    public $eventDTO;
+
     public function create(Request $request)
     {
+        return "test";
         $event = new Event();
         $event->name = $request->name;
         $event->description = $request->description;
@@ -189,8 +193,13 @@ class EventController extends Controller
             ], 404);
         }
 
+
+        $this->eventDTO = new EventDTO($event->id, $event->name, $event->description,
+            $event->start_date, $event->start_time, $event->end_date,
+            $event->end_time,  $event->address_id,$event->image, $event->proprietor_id);
+
         return response()->json([
-            'event' => $event
+            'event' => $this->eventDTO
         ], 200);
     }
 }
