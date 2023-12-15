@@ -14,7 +14,6 @@ class EventController extends Controller
 
     public function create(Request $request)
     {
-        return "test";
         $event = new Event();
         $event->name = $request->name;
         $event->description = $request->description;
@@ -23,7 +22,7 @@ class EventController extends Controller
         $event->end_date = $request->end_date;
         $event->end_time = $request->end_time;
         $event->image = $request->image;
-        $event->proprietor_id = $request->proprietor_id;
+        $event->proprietor_id = 1;
 
         $address = new Address();
         $address->address = $request->address['address'];
@@ -45,20 +44,24 @@ class EventController extends Controller
         try {
             $event->save();
 
-            foreach ($tickets as $ticket) {
-                $newTicket = new Ticket();
-                $newTicket->name = $ticket['name'];
-                $newTicket->description = $ticket['description'];
-                $newTicket->price = $ticket['price'];
-                $newTicket->quantity = $ticket['quantity'];
-                $newTicket->event_id = $event->id;
+            if ($tickets != null || count($tickets) > 0) {
+                if ($tickets[0]['name'] != null || $tickets[0]['name'] != '') {
+                    foreach ($tickets as $ticket) {
+                        $newTicket = new Ticket();
+                        $newTicket->name = $ticket['name'];
+                        $newTicket->description = $ticket['description'];
+                        $newTicket->price = $ticket['price'];
+                        $newTicket->quantity = $ticket['quantity'];
+                        $newTicket->event_id = $event->id;
 
-                try {
-                    $newTicket->save();
-                } catch (\Exception $e) {
-                    return response()->json([
-                        'message' => 'Ticket creation failed: ' . $e->getMessage()
-                    ], 409);
+                        try {
+                            $newTicket->save();
+                        } catch (\Exception $e) {
+                            return response()->json([
+                                'message' => 'Ticket creation failed: ' . $e->getMessage()
+                            ], 409);
+                        }
+                    }
                 }
             }
 
