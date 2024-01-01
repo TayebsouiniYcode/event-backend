@@ -57,6 +57,7 @@ Route::group([
 
     ], function ($router) {
         Route::post('checkout', [App\Http\Controllers\ReservationController::class, 'checkout'])->name('checkout');
+        Route::post('reservation-multiple', [App\Http\Controllers\ReservationController::class, 'reservationMultiple'])->name('reservation-multiple');
         Route::put('update', [App\Http\Controllers\ReservationController::class, 'update'])->name('update');
         Route::delete('delete', [App\Http\Controllers\ReservationController::class, 'delete'])->name('delete');
         Route::get('get-all', [App\Http\Controllers\ReservationController::class, 'getAll'])->name('get-all');

@@ -10,7 +10,6 @@ class ReservationController extends Controller
 {
     public function checkout(Request $request)
     {
-
         $reservation = new Reservation();
 
         $reservation->ticket_id = $request->ticket_id;
@@ -23,5 +22,12 @@ class ReservationController extends Controller
         $reservation = $reservationService->checkout($reservation);
 
         return $reservation;
+    }
+
+    public function reservationMultiple(Request $request)
+    {
+        foreach ($request as $res) {
+            return $res;
+        }
     }
 }
