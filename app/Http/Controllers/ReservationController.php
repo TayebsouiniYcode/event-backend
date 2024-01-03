@@ -13,8 +13,8 @@ class ReservationController extends Controller
         $reservation = new Reservation();
 
         $reservation->ticket_id = $request->ticket_id;
-        $reservation->user_id = $request->user_id;
-        $reservation->quantity = $request->quantity;
+        $reservation->user_id = $request->user_id ?? 1;
+        $reservation->quantity = $request->quantity ?? 1;
         $reservation->reservation_date = date("Y-m-d H:i:s");
         $reservation->paid = false;
 
@@ -26,8 +26,6 @@ class ReservationController extends Controller
 
     public function reservationMultiple(Request $request)
     {
-        foreach ($request as $res) {
-            return $res;
-        }
+
     }
 }
