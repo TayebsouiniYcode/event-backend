@@ -40,6 +40,8 @@ Route::group([
     Route::get('get-by-date', [App\Http\Controllers\EventController::class, 'getByDate'])->name('get-by-date');
     Route::get('get-by-name', [App\Http\Controllers\EventController::class, 'getByName'])->name('get-by-name');
     Route::get('{id}', [App\Http\Controllers\EventController::class, 'getById'])->name('get-by-id');
+
+    Route::post('addText', [App\Http\Controllers\EventController::class, 'addText'])->name('addText');
 });
 
 Route::group([

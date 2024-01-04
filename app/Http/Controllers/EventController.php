@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Event;
+use App\Models\texte;
 use App\Models\Ticket;
 use App\dto\EventDTO;
 use Illuminate\Http\Request;
@@ -205,5 +206,34 @@ class EventController extends Controller
         return response()->json([
             'event' => $this->eventDTO
         ], 200);
+    }
+
+    public function addText(Request $request)
+    {
+        $event = Event::find($request->event_id);
+
+        if (!$event) {
+            return response()->json([
+                'message' => 'Event not found'
+            ], 404);
+        }
+
+      $texte = new texte();
+        $texte->event_id = $request->event_id;
+        $texte->texte = $request->text;
+
+
+        try {
+            $texte->save();
+
+            return response()->json([
+                'message' => 'Event updated successfully',
+                'event' => $texte
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Event update failed: ' . $e->getMessage()
+            ], 409);
+        }
     }
 }
