@@ -200,8 +200,12 @@ class EventController extends Controller
 
 
         $this->eventDTO = new EventDTO($event->id, $event->name, $event->description,
-            $event->start_date, $event->start_time, $event->end_date,
-            $event->end_time,  $event->address_id,$event->image, $event->proprietor_id);
+        $event->start_date, $event->start_time, $event->end_date,
+        $event->end_time,  $event->address_id,$event->image, $event->proprietor_id);
+
+        $textes = texte::where('event_id', $event->id)->get();
+
+        $this->eventDTO->textes = $textes;
 
         return response()->json([
             'event' => $this->eventDTO
@@ -210,17 +214,23 @@ class EventController extends Controller
 
     public function addText(Request $request)
     {
+        return response()->json([
+            'message' => $request
+        ], 404);
+
         $event = Event::find($request->event_id);
 
         if (!$event) {
             return response()->json([
-                'message' => 'Event not found'
+                'message' => $request->texte->event_id
             ], 404);
         }
 
       $texte = new texte();
         $texte->event_id = $request->event_id;
         $texte->texte = $request->text;
+        $texte->title = $request->title;
+        $texte->subtitle = $request->subtitle;
 
 
         try {

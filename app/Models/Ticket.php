@@ -17,6 +17,10 @@ class Ticket extends Model
         'quantity',
     ];
 
+    protected $appends = [
+        'event',
+    ];
+
     public function event()
     {
         return $this->belongsTo(Event::class);
@@ -25,5 +29,10 @@ class Ticket extends Model
     public function reservations()
     {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function getEventAttribute()
+    {
+        return $this->event()->first();
     }
 }

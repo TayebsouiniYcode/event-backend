@@ -19,6 +19,7 @@ class EventDTO {
     public $address;
     public $tickets = [];
     public $proprietor;
+    public $textes = [];
 
 
 
@@ -41,5 +42,9 @@ class EventDTO {
 
         $ticketService = new TicketService();
         $this->tickets = $ticketService->getTicketsByEventId($this->id);
+    }
+
+    public function addTexte($texte) {
+        array_push($this->textes, $texte);
     }
 }

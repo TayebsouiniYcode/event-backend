@@ -41,7 +41,7 @@ Route::group([
     Route::get('get-by-name', [App\Http\Controllers\EventController::class, 'getByName'])->name('get-by-name');
     Route::get('{id}', [App\Http\Controllers\EventController::class, 'getById'])->name('get-by-id');
 
-    Route::post('addText', [App\Http\Controllers\EventController::class, 'addText'])->name('addText');
+    Route::post('addtext', [App\Http\Controllers\EventController::class, 'addText'])->name('addtext');
 });
 
 Route::group([
@@ -63,7 +63,7 @@ Route::group([
         Route::put('update', [App\Http\Controllers\ReservationController::class, 'update'])->name('update');
         Route::delete('delete', [App\Http\Controllers\ReservationController::class, 'delete'])->name('delete');
         Route::get('get-all', [App\Http\Controllers\ReservationController::class, 'getAll'])->name('get-all');
-        Route::get('get-by-user', [App\Http\Controllers\ReservationController::class, 'getByUser'])->name('get-by-user');
+        Route::get('get-by-user', [App\Http\Controllers\ReservationController::class, 'getReservationsByUser'])->name('get-by-user');
         Route::get('get-by-event', [App\Http\Controllers\ReservationController::class, 'getByEvent'])->name('get-by-event');
         Route::get('get-by-date', [App\Http\Controllers\ReservationController::class, 'getByDate'])->name('get-by-date');
         Route::get('get-by-name', [App\Http\Controllers\ReservationController::class, 'getByName'])->name('get-by-name');

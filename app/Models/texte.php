@@ -14,6 +14,8 @@ class texte extends Model
 
 
     protected $fillable = [
+        'title',
+        'subtitle',
         'texte',
         'event_id'
     ];
@@ -51,5 +53,25 @@ class texte extends Model
     public function setEvent($event)
     {
         $this->event = $event;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function setTitle($title)
+    {
+        return $this->title = $title;
+    }
+
+    public function getSubtitle()
+    {
+        return $this->subtitle;
+    }
+
+    public function setSubtitle($subtitle)
+    {
+        return $this->subtitle = $subtitle;
     }
 }

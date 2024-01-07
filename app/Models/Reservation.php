@@ -18,6 +18,11 @@ class Reservation extends Model
         'paid',
     ];
 
+    protected $appends = [
+        'ticket',
+        'user',
+    ];
+
     public function ticket()
     {
         return $this->belongsTo(Ticket::class);
@@ -28,5 +33,13 @@ class Reservation extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getTicketAttribute()
+    {
+        return $this->ticket()->first();
+    }
 
+    public function getUserAttribute()
+    {
+        return $this->user()->first();
+    }
 }
