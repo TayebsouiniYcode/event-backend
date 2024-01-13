@@ -13,7 +13,7 @@ class RegisterController extends Controller
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'phone' => $request->phone,
-            'role_id' => 1,
+            'role_id' => 2,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);

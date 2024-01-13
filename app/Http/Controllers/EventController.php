@@ -23,7 +23,7 @@ class EventController extends Controller
         $event->end_date = $request->end_date;
         $event->end_time = $request->end_time;
         $event->image = $request->image;
-        $event->proprietor_id = 1;
+        $event->proprietor_id = $request->proprietor_id;
 
         $address = new Address();
         $address->address = $request->address['address'];
@@ -214,15 +214,11 @@ class EventController extends Controller
 
     public function addText(Request $request)
     {
-        return response()->json([
-            'message' => $request
-        ], 404);
-
         $event = Event::find($request->event_id);
 
         if (!$event) {
             return response()->json([
-                'message' => $request->texte->event_id
+                'message' => $request->event_id
             ], 404);
         }
 
@@ -245,5 +241,13 @@ class EventController extends Controller
                 'message' => 'Event update failed: ' . $e->getMessage()
             ], 409);
         }
+    }
+
+    public function getEventByUserId(Request $request)
+    {
+        $events = Event::where('proprietor_id', $request->user_id)->get();
+        return response()->json([
+            'events' => $events
+        ], 200);
     }
 }

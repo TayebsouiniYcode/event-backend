@@ -29,39 +29,9 @@ class ReservationController extends Controller
 
     public  function getReservationsByUser(Request $request)
     {
-//        $reservationsDTO = [];
-
         $reservationModel = new Reservation();
         $reservations = $reservationModel->where('user_id', $request->user_id)->get();
 
         return $reservations;
-
-//        $ticketModel = new Ticket();
-
-//        foreach ($reservations as $reservation) {
-//            try {
-//                $reservationDTO =  new ReservationDTO(
-//                    1,
-//                    1,
-//                    1,
-//                    2,
-//                    0,
-//                    "Test",
-//                    0
-//                );
-//
-//                $ticket = $ticketModel->find($reservation->ticket_id);
-//
-//                $reservationDTO->addTicket($ticket);
-//
-//                $reservationsDTO[] = $reservationDTO;
-//
-//
-//            } catch (Exception $exception){
-//                return "Erreur : " . $exception->getMessage();
-//            }
-//        }
-
-//        return $reservationDTO;
     }
 }
